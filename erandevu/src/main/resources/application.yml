@@ -5,7 +5,7 @@ spring:
   application:
     name: Erandevu
   datasource:
-    url: jdbc:mysql://localhost:3306/acillazimdata
+    url: jdbc:mysql://localhost:3306/erandevudata
     username: root
     password: root
     driver-class-name: com.mysql.cj.jdbc.Driver

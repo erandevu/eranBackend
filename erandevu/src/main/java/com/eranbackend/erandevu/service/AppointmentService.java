@@ -9,9 +9,6 @@ import com.eranbackend.erandevu.dto.AppointmentDto;
 import com.eranbackend.erandevu.entity.Appointment;
 import com.eranbackend.erandevu.repository.AppointmentRepository;
 
-
-
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -28,7 +25,6 @@ public class AppointmentService {
 
     @Autowired
     private AppointmentRepository appointmentRepository;
-
 
     public Appointment saveAppointment(AppointmentDto appointmentDto) {
 
@@ -58,32 +54,32 @@ public class AppointmentService {
         return newAppointment;
     }
 
-    public ResponseEntity<List<Map<String, Object>>> getAppointmentsByUserIdAndDateRange(Long userId, LocalDate startDate,
-            LocalDate endDate) {
+    public ResponseEntity<List<Map<String, Object>>> getAppointmentsByUserIdAndDateRange(Long userId,
+            LocalDateTime startDate,
+            LocalDateTime endDate) {
 
-        ArrayList<Appointment> appointmentUserIdAndDate = appointmentRepository.findByUserIdAndDateBetween(userId,
+        ArrayList<Appointment> appointmentUserIdAndDate = appointmentRepository.findByUserIdAndAppointmentDateBetween(userId,
                 startDate, endDate);
 
-                if (!appointmentUserIdAndDate.isEmpty()) {
-                    // "AppointmentDate" alanına göre gruplama
-                    Map<LocalDateTime, List<Appointment>> groupedByAppointmentDate = appointmentUserIdAndDate.stream()
-                            .collect(Collectors.groupingBy(Appointment::getAppointmentDate));
-        
-                    // Her grubu istenen JSON formatına çevirme
-                    List<Map<String, Object>> result = new ArrayList<>();
-                    for (Map.Entry<LocalDateTime, List<Appointment>> entry : groupedByAppointmentDate.entrySet()) {
-                        Map<String, Object> group = new HashMap<>();
-                        group.put("groupAppointmentDate", entry.getKey());
-        
-                        // Randevuları hourArrayId'ye göre sıralama
-                        List<Appointment> sortedAppointments = entry.getValue().stream()
-                                .sorted(Comparator.comparing(Appointment::getHourArrayId))
-                                .collect(Collectors.toList());
+        if (!appointmentUserIdAndDate.isEmpty()) {
+            // "AppointmentDate" alanına göre gruplama
+            Map<LocalDateTime, List<Appointment>> groupedByAppointmentDate = appointmentUserIdAndDate.stream()
+                    .collect(Collectors.groupingBy(Appointment::getAppointmentDate));
 
-                        
-                        group.put("data", sortedAppointments);
-                        result.add(group);
-                    }
+            // Her grubu istenen JSON formatına çevirme
+            List<Map<String, Object>> result = new ArrayList<>();
+            for (Map.Entry<LocalDateTime, List<Appointment>> entry : groupedByAppointmentDate.entrySet()) {
+                Map<String, Object> group = new HashMap<>();
+                group.put("groupAppointmentDate", entry.getKey());
+
+                // Randevuları hourArrayId'ye göre sıralama
+                List<Appointment> sortedAppointments = entry.getValue().stream()
+                        .sorted(Comparator.comparing(Appointment::getHourArrayId))
+                        .collect(Collectors.toList());
+
+                group.put("data", sortedAppointments);
+                result.add(group);
+            }
             return ResponseEntity.ok(result);
         }
         return null;

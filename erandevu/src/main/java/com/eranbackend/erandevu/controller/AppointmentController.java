@@ -8,7 +8,7 @@ import com.eranbackend.erandevu.dto.AppointmentDto;
 import com.eranbackend.erandevu.entity.Appointment;
 import com.eranbackend.erandevu.service.AppointmentService;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 
@@ -30,8 +30,8 @@ public class AppointmentController {
     }
 
     @GetMapping("user/{userId}/start_date/{startDate}/end_date/{endDate}")
-    public ResponseEntity<List<Map<String, Object>>> getAppointmentById(@PathVariable Long userId,LocalDate startDate,
-            LocalDate endDate) {
+    public ResponseEntity<List<Map<String, Object>>> getAppointmentById(@PathVariable Long userId, @PathVariable LocalDateTime startDate,
+    @PathVariable LocalDateTime endDate) {
         return appointmentService.getAppointmentsByUserIdAndDateRange(userId, startDate, endDate);
     }
 
