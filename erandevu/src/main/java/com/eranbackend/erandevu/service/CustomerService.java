@@ -1,5 +1,6 @@
 package com.eranbackend.erandevu.service;
 
+import com.eranbackend.erandevu.entity.ClientLog;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,7 +19,8 @@ public class CustomerService {
 
     @Autowired
     private CustomerRepository customerRepository;
-
+    @Autowired
+    private ClientLogService clientLogService;
 
     public Customer saveCustomer(CustomerDto customerDto) {
 
@@ -30,6 +32,13 @@ public class CustomerService {
             newCustomer.setStatus(true);
             newCustomer.setUptodate(LocalDateTime.now());
             customerRepository.save(newCustomer);
+            ClientLog clientLog = null;
+            clientLog.setCostemerId(customerDto.getId());
+            clientLog.setDescription(customerDto.toString());
+            clientLog.setClassName("CustomerService");
+            clientLog.setMethodName("saveCustomer");
+
+
            return newCustomer;
         }
         return null;
