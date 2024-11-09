@@ -1,34 +1,32 @@
 package com.eranbackend.erandevu.entity;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.util.UUID;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
-@Getter
-@Setter
 @Entity
-@Table(name = "appointment")
+@Data
 public class Appointment {
-
     @Id
-    @GeneratedValue
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private UUID id;
 
-    private Long userId;
-    private Long costemerId;
-    private Long hourArrayId;
-    private String explanation;
-    private Boolean status;
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    private LocalDateTime uptodate;
-    @JsonFormat(pattern = "yyyy-MM-dd")
-    private LocalDateTime appointmentDate;
+    private LocalDate date;
+    private LocalTime time;
 
+    @ManyToOne
+    @JoinColumn(name = "employee_id")
+    private Employee employee;
+
+    @ManyToOne
+    @JoinColumn(name = "customer_id")
+    private Customer customer;
 }
