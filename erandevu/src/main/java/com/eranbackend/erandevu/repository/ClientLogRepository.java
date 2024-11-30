@@ -4,8 +4,9 @@ import com.eranbackend.erandevu.entity.ClientLog;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
+import java.util.UUID;
 
-public interface ClientLogRepository extends JpaRepository<ClientLog, Long> {
-    List<ClientLog> findByUserIdAndCostemerIdOrderByCreatedDateDesc(Long userId, Long costemerId);
+public interface ClientLogRepository extends JpaRepository<ClientLog, UUID> {
+    List<ClientLog> findByUserIdAndCostemerIdOrderByCreatedDateDesc(UUID userId, UUID costemerId);
 
 }

@@ -2,6 +2,7 @@ package com.eranbackend.erandevu.dto;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
@@ -18,7 +19,7 @@ public class CustomerDto {
 
     @Id
     @GeneratedValue
-    private Long id;
+    private UUID id;
 
     private String usrname;
 

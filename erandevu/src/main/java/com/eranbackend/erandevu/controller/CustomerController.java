@@ -1,6 +1,7 @@
 package com.eranbackend.erandevu.controller;
 
 import java.util.Map;
+import java.util.UUID;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -30,12 +31,12 @@ public class CustomerController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Map<String, Object>> getCustomerById(@PathVariable Long id) {
+    public ResponseEntity<Map<String, Object>> getCustomerById(@PathVariable UUID id) {
         return customerService.getCustomerById(id);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Map<String, Object>> deleteCustomer(@PathVariable Long id) {
+    public ResponseEntity<Map<String, Object>> deleteCustomer(@PathVariable UUID id) {
         return customerService.deleteCustomer(id);
     }
 

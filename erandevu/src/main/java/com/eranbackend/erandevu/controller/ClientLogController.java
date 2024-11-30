@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/clientLogs")
@@ -24,8 +25,8 @@ public class ClientLogController {
 
     @GetMapping("/getByUserIdAndCustomerId")
     public ResponseEntity<Map<String, Object>> getClientLogsByUserIdAndCustomerId(
-            @RequestParam Long userId,
-            @RequestParam Long costemerId) {
+            @RequestParam UUID userId,
+            @RequestParam UUID costemerId) {
         return clientLogService.getClientLogsByUserIdAndCustomerId(userId, costemerId);
     }
 }

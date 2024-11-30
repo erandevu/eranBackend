@@ -8,6 +8,7 @@ import com.eranbackend.erandevu.service.AppointmentService;
 import lombok.RequiredArgsConstructor;
 import java.time.LocalDateTime;
 import java.util.Map;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/Appointment")
@@ -28,13 +29,13 @@ public class AppointmentController {
     }
 
     @GetMapping("user/{userId}/start_date/{startDate}/end_date/{endDate}")
-    public ResponseEntity<Map<String, Object>> getAppointmentById(@PathVariable Long userId, @PathVariable LocalDateTime startDate,
+    public ResponseEntity<Map<String, Object>> getAppointmentById(@PathVariable UUID userId, @PathVariable LocalDateTime startDate,
     @PathVariable LocalDateTime endDate) {
         return appointmentService.getAppointmentsByUserIdAndDateRange(userId, startDate, endDate);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Map<String, Object>> deleteAppointment(@PathVariable Long id) {
+    public ResponseEntity<Map<String, Object>> deleteAppointment(@PathVariable UUID id) {
         return appointmentService.deleteAppointment(id);
     }
 

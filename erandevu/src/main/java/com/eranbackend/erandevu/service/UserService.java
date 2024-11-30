@@ -14,6 +14,7 @@ import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -91,7 +92,7 @@ public class UserService {
     }
 
     @Transactional(readOnly = true)
-    public ResponseEntity<Map<String, Object>> getUserById(Long id) {
+    public ResponseEntity<Map<String, Object>> getUserById(UUID id) {
         Map<String, Object> response = new HashMap<>();
         try {
             Optional<User> user = userRepository.findById(id);
@@ -113,7 +114,7 @@ public class UserService {
         }
     }
 
-    public ResponseEntity<Map<String, Object>> deleteUser(Long id) {
+    public ResponseEntity<Map<String, Object>> deleteUser(UUID id) {
         Map<String, Object> response = new HashMap<>();
         try {
             Optional<User> findUser = userRepository.findById(id);

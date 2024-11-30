@@ -79,7 +79,7 @@ public class AppointmentService {
     }
 
     @Transactional(readOnly = true)
-    public ResponseEntity<Map<String, Object>> getAppointmentsByUserIdAndDateRange(Long userId,
+    public ResponseEntity<Map<String, Object>> getAppointmentsByUserIdAndDateRange(UUID userId,
                                                                                    LocalDateTime startDate,
                                                                                    LocalDateTime endDate) {
         Map<String, Object> response = new HashMap<>();
@@ -119,7 +119,7 @@ public class AppointmentService {
     }
 
     @Transactional
-    public ResponseEntity<Map<String, Object>> deleteAppointment(Long id) {
+    public ResponseEntity<Map<String, Object>> deleteAppointment(UUID id) {
         Map<String, Object> response = new HashMap<>();
         try {
             Optional<Appointment> findAppointment = appointmentRepository.findById(id);

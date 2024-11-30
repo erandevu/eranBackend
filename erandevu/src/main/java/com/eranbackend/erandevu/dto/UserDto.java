@@ -2,6 +2,7 @@ package com.eranbackend.erandevu.dto;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 import com.eranbackend.erandevu.utils.UserRole;
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -17,7 +18,7 @@ public class UserDto {
 
     @Id
     @GeneratedValue
-    private Long id;
+    private UUID id;
 
     /* @Column(nullable = false) */
     private String firstName;

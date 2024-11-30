@@ -9,17 +9,18 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 @Entity
 @Data
 public class ClientLog {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private UUID id;
     private String description;
-    private Long userId;
-    private Long costemerId;
+    private UUID userId;
+    private UUID costemerId;
     private String className;
     private String methodName;
 

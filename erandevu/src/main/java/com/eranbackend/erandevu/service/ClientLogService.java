@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -36,7 +37,7 @@ public class ClientLogService {
     }
 
     @Transactional(readOnly = true)
-    public ResponseEntity<Map<String, Object>> getClientLogsByUserIdAndCustomerId(Long userId, Long costemerId) {
+    public ResponseEntity<Map<String, Object>> getClientLogsByUserIdAndCustomerId(UUID userId, UUID costemerId) {
         Map<String, Object> response = new HashMap<>();
         try {
             List<ClientLog> logs = clientLogRepository.findByUserIdAndCostemerIdOrderByCreatedDateDesc(userId, costemerId);
