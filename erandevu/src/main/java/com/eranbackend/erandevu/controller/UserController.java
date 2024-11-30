@@ -1,38 +1,42 @@
 package com.eranbackend.erandevu.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import java.util.Map;
+
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import com.eranbackend.erandevu.dto.UserDto;
-import com.eranbackend.erandevu.entity.User;
 import com.eranbackend.erandevu.service.UserService;
+
+import lombok.RequiredArgsConstructor;
 
 
 @RestController
 @RequestMapping("/user")
+@RequiredArgsConstructor
 public class UserController {
 
-    @Autowired
-    private UserService userService;
+    
+    private final UserService userService;
 
     @PostMapping
-    public User createUser(@RequestBody UserDto userDto) {
+    public ResponseEntity<Map<String, Object>> createUser(@RequestBody UserDto userDto) {
         return userService.saveUser(userDto);
     }
 
     @PutMapping
-    public User updateUser(@RequestBody UserDto userDto) {
+    public ResponseEntity<Map<String, Object>> updateUser(@RequestBody UserDto userDto) {
         return userService.updateUser(userDto);
     }
 
     @GetMapping("/{id}")
-    public User getUserById(@PathVariable Long id) {
+    public ResponseEntity<Map<String, Object>> getUserById(@PathVariable Long id) {
         return userService.getUserById(id);
     }
 
     @DeleteMapping("/{id}")
-    public void deleteUser(@PathVariable Long id) {
-        userService.deleteUser(id);
+    public ResponseEntity<Map<String, Object>> deleteUser(@PathVariable Long id) {
+      return userService.deleteUser(id);
     }
 
 }
